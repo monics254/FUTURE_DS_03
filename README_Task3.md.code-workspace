@@ -1,3 +1,158 @@
-{
-	"folders": []
-}
+# 📊 Bank Marketing Campaign — Funnel & Conversion Performance Analysis
+### Data Science & Analytics – Task 3 | Future Interns Internship Program 2026
+
+---
+
+## 🔍 Project Overview
+
+This project analyzes a real-world bank marketing campaign dataset to understand how clients move through the marketing funnel — from first contact to subscription. The goal is to identify where drop-offs occur, which segments convert best, and what actions can improve campaign performance.
+
+This analysis reflects the kind of work done by marketing analysts and growth teams at banks, fintech companies, and subscription businesses.
+
+---
+
+##  Business Questions Answered
+
+- What is the overall campaign conversion rate?
+- Where are clients dropping off in the funnel?
+- Which months have the highest conversion rates?
+- Which job types and education levels convert best?
+- Does calling clients more times improve conversion?
+- How does account balance influence subscription likelihood?
+
+---
+
+## 📁 Repository Structure
+
+```
+FUTURE_DS_03/
+│
+├── data/
+│   └── bank_marketing_clean.xlsx        # Cleaned dataset used in Tableau
+│
+├── screenshots/
+│   ├── funnel_chart.png                 # Funnel stage breakdown
+│   └── dashboard_overview.png          # Full dashboard view
+│
+└── README.md
+```
+
+---
+
+## 📦 Dataset
+
+**Source:** [Bank Marketing Dataset — UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/222/bank+marketing)
+
+- **Rows:** 45,211 clients
+- **Columns:** 17 features including demographics, campaign contacts, call duration, and subscription status
+- **Target Variable:** `y` — Did the client subscribe to a term deposit? (Yes / No)
+
+### Key Columns Used
+
+| Column | Description |
+|--------|-------------|
+| `age` | Client age |
+| `job` | Type of job |
+| `marital` | Marital status |
+| `education` | Education level |
+| `balance` | Account balance (Euros) |
+| `contact` | Contact method |
+| `month` | Month of last contact |
+| `duration` | Last call duration (seconds) |
+| `campaign` | Number of contacts this campaign |
+| `poutcome` | Previous campaign outcome |
+| `y` | Subscribed? Yes / No ✅ |
+
+---
+
+## 🛠️ Tools Used
+
+| Tool | Purpose |
+|------|---------|
+| **Tableau Public** | Dashboard creation and funnel visualization |
+| **Microsoft Excel** | Data cleaning and calculated column preparation |
+
+---
+
+## 🧹 Data Preparation
+
+Performed in **Microsoft Excel:**
+- Verified no duplicate rows
+- Checked for and handled `unknown` category values
+- Added `Funnel Stage` calculated column to map clients to funnel stages
+- Added `Balance Group` column: Negative / Low / Medium / High
+- Added `Duration (Minutes)` column: Duration / 60
+- Saved as `bank_marketing_clean.xlsx`
+
+**Calculated Fields created in Tableau:**
+
+```
+Total Contacts = COUNT([Y])
+
+Total Converted = SUM(IF [Y] = "yes" THEN 1 ELSE 0 END)
+
+Conversion Rate = SUM(IF [Y] = "yes" THEN 1 ELSE 0 END) / COUNT([Y])
+
+Funnel Stage =
+IF [Y] = "yes" THEN "Stage 4: Subscribed"
+ELSEIF [Campaign] > 3 THEN "Stage 3: Multiple Contacts"
+ELSEIF [Duration] > 60 THEN "Stage 2: Engaged"
+ELSE "Stage 1: Contacted"
+END
+```
+
+---
+
+## 📊 Dashboard Pages
+
+### Visuals Included
+- **Funnel Bar Chart** — Client drop-off across all 4 funnel stages
+- **Pie Chart** — Overall converted vs not converted split
+- **Monthly Line Chart** — Conversion rate trends by month
+- **Job Type Bar Chart** — Conversion rate by employment type
+- **Contact Frequency Line Chart** — Impact of number of calls on conversion
+- **Balance Group Bar Chart** — Conversion rate by account balance tier
+
+### Interactive Filters
+- Job Type
+- Month
+- Education
+- Marital Status
+- Contact Method
+- Previous Campaign Outcome
+
+---
+
+
+
+## 💡 Key Insights
+
+1. **Only ~11% of contacted clients subscribed** — the majority drop off at the first contact stage
+2. **March, September & October** show the highest conversion rates — ideal months for campaign pushes
+3. **Retired clients and students** convert at significantly higher rates than employed segments
+4. **1–3 contact attempts** yield the best results — conversion drops sharply beyond 5 calls
+5. **Clients with higher account balances** are more likely to subscribe to a term deposit
+6. **Previous campaign success** (`poutcome = success`) is the strongest predictor of conversion
+
+---
+
+## ✅ Business Recommendations
+
+| Recommendation | Target Segment |
+|---------------|---------------|
+| Focus campaign efforts in March, September & October | All clients |
+| Limit contact attempts to maximum 3 calls per client | Over-contacted clients |
+| Prioritize retired and student segments for outreach | Job-based targeting |
+| Offer tailored products to high-balance clients | High-balance segment |
+| Re-engage clients who converted in previous campaigns | Poutcome = success |
+| Review and improve approach for clients with negative balances | Negative balance segment |
+
+---
+
+## 🚀 Skills Demonstrated
+
+- Marketing funnel & conversion analysis
+- Customer segmentation and cohort thinking
+- KPI development and tracking
+- Interactive dashboard design in Tableau
+- Data-driven business storytelling and recommendations
